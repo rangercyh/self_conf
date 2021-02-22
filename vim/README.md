@@ -1,10 +1,10 @@
-vi  ~/.vimrc
+    vi  ~/.vimrc
 
-yum -y install vim-enhanced
+    yum -y install vim-enhanced
 
-vi /etc/profile
+    vi /etc/profile
 
-alias vi=vim
+    alias vi=vim
 
 ```bash
 filetype plugin on

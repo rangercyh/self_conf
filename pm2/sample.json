@@ -1,0 +1,49 @@
+{
+  "apps" : [{
+    "name"        : "gitlabhook",
+    "script"      : "./node_modules/gitlabhook/gitlabhook-server.js",
+    "cwd"         : "./",
+  },{
+    "name"       : "webconvert",
+    "script"     : "./bin/www",
+    "cwd"        : "./webconvert",
+    "watch"      : true,
+    "watch_options": {
+        "usePolling": true
+    },
+    "ignore_watch" : [
+        ".git",
+        "workdir",
+        "logs",
+        "node_modules",
+        "gitdir",
+        "db/startserver_histroy.json",
+        "db/branchsel.json"
+    ]
+  },{
+    "name"       : "server_list_node",
+    "exec_mode"  : "cluster",
+    "instances"  : 0,
+    "script"     : "main.js",
+    "cwd"        : "./server_list_node",
+    "watch"      : true,
+    "watch_options": {
+        "usePolling": true
+    },
+    "ignore_watch" : [
+        ".git",
+        "node_modules",
+    ]
+  },{
+    "name"       : "log_notify_master",
+    "script"     : "./main.js",
+    "args"       : ["/home/caiyiheng/webconvert/gitdir/master/logs/game_total.log", "/home/caiyiheng/webconvert/gitdir/master/logs/center_total.log"],
+    "cwd"        : "./log_notify/master",
+  },{
+    "name"       : "log_notify_week",
+    "script"     : "./main.js",
+    "args"       : ["/home/caiyiheng/webconvert/gitdir/week/logs/game_total.log", "/home/caiyiheng/webconvert/gitdir/week/logs/center_total.log"],
+    "cwd"        : "./log_notify/week",
+  }
+  ]
+}

@@ -325,3 +325,12 @@ sudo chown -R samba_share:samba_share xxx/
     `lvextend -l +100%FREE /dev/centos/root` 将 /dev/centos/root 所在卷组所有剩余空间都分配给了它
 
     `xfs_growfs /dev/centos/root` 对扩容后的 LV 进行 xfs 格式大小调整
+
+### 升级gcc到9
+
+    sudo yum install centos-release-scl scl-utils-build -y
+    sudo yum install devtoolset-9-toolchain -y
+    scl enable devtoolset-9 bash
+    sudo echo "source /opt/rh/devtoolset-9/enable" >> /etc/profile
+    gcc -v
+

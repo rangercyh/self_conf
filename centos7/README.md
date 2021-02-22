@@ -268,27 +268,28 @@ sudo reboot
     由于日志可能被 logrorate 切了，所以如果没找到想看的，可以在 /var/log/ 目录下找 secure-时间戳.log 的
 
 ## 小贴士
-##### :w !sudo tee %  vi保存文件提升sudo权限
-##### echo -n "hello"|md5sum|cut -d" " -f1 计算字符串的md5值
-##### w命令可以查看当前登录的所有用户，根据登录TTY，ps -ef|grep XX来找到他的shell，kill -9杀掉shell实现踢掉用户的作用
-##### 修改文件夹权限
+    :w !sudo tee %  vi保存文件提升sudo权限
+    echo -n "hello"|md5sum|cut -d" " -f1 计算字符串的md5值
+    w命令可以查看当前登录的所有用户，根据登录TTY，ps -ef|grep XX来找到他的shell，kill -9杀掉shell实现踢掉用户的作用
+
+### 修改文件夹权限
 ```bash
 sudo chown -R samba_share:samba_share xxx/
 ```
-##### :nohl  vi清除搜索高亮
-##### grep 'xxx' game.log > 1.txt  查询关键字导出文件
-##### npm安装权限问题可以修改安装目录到 ~/。 改 ~/.npmrc 加 prefix=~/，然后加 .bash_profile PATH=$PATH:$HOME/bin
-##### luacheck <https://luacheck.readthedocs.io/en/stable/config.html>
-##### windows客户端服务：pm2 serve . --port 5678
-##### 如果无意间把用户移出了wheel组导致sudo无法使用，可以建2个ssh连接，在第一个里面输入echo $$获得进程id，在第二个里面输入pkttyagent --process xxx进程id，然后回第一个里面输入pkexec su，然后在第二个里面输入root的密码，第一个里面就变成了root登录
+    :nohl  vi清除搜索高亮
+    grep 'xxx' game.log > 1.txt  查询关键字导出文件
+    npm安装权限问题可以修改安装目录到 ~/。 改 ~/.npmrc 加 prefix=~/，然后加 .bash_profile PATH=$PATH:$HOME/bin
+    luacheck <https://luacheck.readthedocs.io/en/stable/config.html>
+    windows客户端服务：pm2 serve . --port 5678
+### 如果无意间把用户移出了wheel组导致sudo无法使用，可以建2个ssh连接，在第一个里面输入echo $$获得进程id，在第二个里面输入pkttyagent --process xxx进程id，然后回第一个里面输入pkexec su，然后在第二个里面输入root的密码，第一个里面就变成了root登录
 
-##### 配置 wheel 组用户 sudo 不需要密码，修改 /etc/sudoers，换掉下方的注释
+### 配置 wheel 组用户 sudo 不需要密码，修改 /etc/sudoers，换掉下方的注释
     ## Allows people in group wheel to run all commands
     %wheel  ALL=(ALL)       ALL
     ## Same thing without a password
     # %wheel        ALL=(ALL)       NOPASSWD: ALL
 
-##### 生成 jenkins ssh key ，首先得用 jenkins 用户登录在 /var/lib/jenkins/.ssh/ 目录下生成，然后 publish 发布填写相对路径 .ssh/id_rsa
+### 生成 jenkins ssh key ，首先得用 jenkins 用户登录在 /var/lib/jenkins/.ssh/ 目录下生成，然后 publish 发布填写相对路径 .ssh/id_rsa
     ## 先给 jenkins 用户设置密码
     sudo passwd jenkins
     ## 用 jenkins 用户登录
@@ -299,28 +300,28 @@ sudo chown -R samba_share:samba_share xxx/
     chmod -R 700 .ssh
 
 
-## centos7 添加新硬盘扩展根目录（ LVM 方式）
+### centos7 添加新硬盘扩展根目录（ LVM 方式）
 
-`fdisk -l|grep sd` 查看当前所有硬盘，假设新硬盘叫/dev/sdb
+    `fdisk -l|grep sd` 查看当前所有硬盘，假设新硬盘叫/dev/sdb
 
-`fdisk /dev/sdb` 对新硬盘进行分区
+    `fdisk /dev/sdb` 对新硬盘进行分区
 
-`n p <cr> <cr> <cr> t 8e w`
-- 输入 n 添加新的物理分区
-- 输入 p 选择主分区类型
-- 默认1
-- 默认
-- 默认
-- 输入 t 修改分区 id
-- 输入 8e 修改分区为 Linux LVM 类型
-- 输入 w 将修改写入磁盘
+    `n p <cr> <cr> <cr> t 8e w`
+    - 输入 n 添加新的物理分区
+    - 输入 p 选择主分区类型
+    - 默认1
+    - 默认
+    - 默认
+    - 输入 t 修改分区 id
+    - 输入 8e 修改分区为 Linux LVM 类型
+    - 输入 w 将修改写入磁盘
 
-`pvcreate /dev/sdb1` 创建 PV
+    `pvcreate /dev/sdb1` 创建 PV
 
-`vgdisplay` 查看卷组，假设 VG NAME 为 centos
+    `vgdisplay` 查看卷组，假设 VG NAME 为 centos
 
-`vgextend centos /dev/sdb1` 将新的 PV 加入 centos 组卷
+    `vgextend centos /dev/sdb1` 将新的 PV 加入 centos 组卷
 
-`lvextend -l +100%FREE /dev/centos/root` 将 /dev/centos/root 所在卷组所有剩余空间都分配给了它
+    `lvextend -l +100%FREE /dev/centos/root` 将 /dev/centos/root 所在卷组所有剩余空间都分配给了它
 
-`xfs_growfs /dev/centos/root` 对扩容后的 LV 进行 xfs 格式大小调整
+    `xfs_growfs /dev/centos/root` 对扩容后的 LV 进行 xfs 格式大小调整

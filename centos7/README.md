@@ -134,11 +134,9 @@ vi /etc/security/limits.conf
 # vi /etc/sysctl.conf, 加入以下内容，重启生效
 fs.file-max = 65535000
 fs.nr_open = 65535000
-net.nf_conntrack_max = 10240000
-net.netfilter.nf_conntrack_max = 10240000
 ```
 
-由于 centos7 使用Systemd替代了之前的SysV，所以 limits.conf 作用小了，对于 systemd 启动的进程，需要修改 /etc/systemd/system.conf 和 /etc/systemd/user.conf
+由于 centos7 使用Systemd替代了之前的SysV，所以 limits.conf 作用小了，对于 systemd 启动的用户进程，需要修改 /etc/systemd/system.conf 和 /etc/systemd/user.conf
 ```bash
 DefaultLimitCORE=infinity
 DefaultLimitNOFILE=6553500

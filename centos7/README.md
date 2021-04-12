@@ -128,13 +128,6 @@ vi /etc/security/limits.conf
     *        hard  nproc  6553500
     *        soft  core  unlimited
     *        hard  core  unlimited
-    
-    root    soft  nofile  6553500
-    root    hard  nofile  6553500
-    root    soft  nproc  6553500
-    root    hard  nproc  6553500
-    root    soft  core  unlimited
-    root    hard  core  unlimited
 
 修改file-max
 ```bash

@@ -117,7 +117,7 @@ electron_mirror=http://npm.taobao.org/mirrors/electron/  (特别针对electron�
 ```
 
 ## 系统能够打开的句柄数量受3个层次限制，系统级 fs.fs_max，进程级 fs.nr_open，用户级 nofile
-### 修改用户进程文件句柄限制和core文件大小1G
+### 修改用户进程文件句柄限制和core文件大小
 ```bash
 vi /etc/security/limits.conf
 ```
@@ -143,8 +143,10 @@ DefaultLimitNOFILE=6553500
 DefaultLimitNPROC=6553500
 ```
 
-重启
+sysctl -p 使得设置生效。并使用 sysctl -a | grep fs 验证是否生效，开个新shell或者重启
 ```
+sudo sysctl -p
+sudo sysctl -a | grep fs
 sudo reboot
 ```
 

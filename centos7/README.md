@@ -116,7 +116,8 @@ phantomjs_cdnurl=http://npm.taobao.org/mirrors/phantomjs
 electron_mirror=http://npm.taobao.org/mirrors/electron/  (特别针对electron加一下，因为我经常用)
 ```
 
-## 修改用户进程文件句柄限制和core文件大小1G
+## 系统能够打开的句柄数量受3个层次限制，系统级 fs.fs_max，进程级 fs.nr_open，用户级 nofile
+### 修改用户进程文件句柄限制和core文件大小1G
 ```bash
 vi /etc/security/limits.conf
 ```
@@ -135,12 +136,14 @@ vi /etc/security/limits.conf
     root    soft  core  unlimited
     root    hard  core  unlimited
 
+修改file-max
 ```bash
-vi /etc/security/limits.d/20-nproc.conf
+# vi /etc/sysctl.conf, 加入以下内容，重启生效
+fs.file-max = 65535000
+fs.nr_open = 65535000
+net.nf_conntrack_max = 10240000
+net.netfilter.nf_conntrack_max = 10240000
 ```
-
-    *          soft    nproc    6553500
-    root       soft    nproc    unlimited
 
 由于 centos7 使用Systemd替代了之前的SysV，所以 limits.conf 作用小了，对于 systemd 启动的进程，需要修改 /etc/systemd/system.conf 和 /etc/systemd/user.conf
 ```bash
@@ -148,16 +151,6 @@ DefaultLimitCORE=infinity
 DefaultLimitNOFILE=6553500
 DefaultLimitNPROC=6553500
 ```
-修改file-max
-```bash
-# echo  6553500 > /proc/sys/fs/file-max
-# sysctl -w "fs.file-max=6553500"，前面2种重启机器后会恢复为默认值
-# vi /etc/sysctl.conf, 加入以下内容，重启生效
-fs.file-max = 6553500
-net.nf_conntrack_max = 10240000
-net.netfilter.nf_conntrack_max = 10240000
-```
-
 
 重启
 ```

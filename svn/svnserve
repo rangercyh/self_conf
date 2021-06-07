@@ -1,0 +1,3 @@
+# /etc/sysconfig/svnserve
+# Specify the repository location in -r parameter:
+OPTIONS="-r /home/caiyiheng/svn"

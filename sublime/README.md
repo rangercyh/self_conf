@@ -13,6 +13,7 @@ https://fonts.google.com/specimen/Roboto+Mono?sidebar.open=true&selection.family
     trailingspaces
     RawLineEdit
     pretty json
+    alignment
 
 ## 统计代码总行数，搜索正则：
     ^[ \t]*[^ \t\n\r-]+.*$

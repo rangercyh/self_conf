@@ -20,5 +20,7 @@
     { "keys": ["ctrl+9"], "command": "select_by_index", "args": { "index": 8 } },
     { "keys": ["ctrl+0"], "command": "select_by_index", "args": { "index": 9 } },
 
-    { "keys": ["ctrl+d"], "command": "alignment" }
+    { "keys": ["ctrl+d"], "command": "alignment" },
+    { "keys": ["alt+d"], "command": "jump_back" },
+    { "keys": ["alt+f"], "command": "jump_forward" }
 ]

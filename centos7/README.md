@@ -1,3 +1,95 @@
+## all
+```
+timedatectl set-local-rtc 1
+timedatectl set-timezone Asia/Shanghai
+
+adduser caiyiheng
+passwd caiyiheng
+usermod -G wheel caiyiheng
+exit 退出登录用 caiyiheng 登录
+
+sudo vi /etc/ssh/sshd_config  修改“#PermitRootLogin yes”改为 “PermitRootLogin no”，去掉注释“#PubkeyAuthentication yes”
+sudo vi /etc/pam.d/su         “#auth required pam_wheel.so use_uid ”这一行，将行首的“#”去掉
+sudo vi /etc/login.defs       在最后一行增加“SU_WHEEL_ONLY yes”语句
+
+mkdir .ssh
+cd .ssh/
+vi authorized_keys            添加 pub key
+chmod 600 authorized_keys
+cd ..
+chmod -R 700 .ssh/
+service sshd restart
+exit 退出登录用 key
+config配置
+Host k8s-m
+	HostName 10.0.136.17
+	User caiyiheng
+	IdentityFile ~/.ssh/id_rsa
+
+sudo yum install -y epel-release
+sudo yum install -y centos-release-scl scl-utils-build devtoolset-9-toolchain
+scl enable devtoolset-9 bash
+sudo echo "source /opt/rh/devtoolset-9/enable" >> /etc/profile
+
+sudo yum groupinstall "Development Tools"
+sudo yum install -y libevent-devel libtools autoconf automake cmake openssl-devel python-devel readline-devel
+sudo yum install -y curl-devel expat-devel asciidoc xmlto
+
+curl -LJO https://github.com/git/git/archive/refs/tags/v2.33.0.tar.gz
+tar -xvf git-2.33.0.tar.gz
+cd git-2.33.0
+make configure
+./configure --prefix=/usr/local
+make all doc
+sudo make install install-doc install-html
+git config --global user.name "caiyiheng"
+git config --global user.email rangercyh@qq.com
+git config --global color.ui auto
+git config --global core.editor vim
+git config --global gui.encoding utf-8
+git config --global alias.co checkout
+git config --global alias.br branch
+git config --global alias.ci commit
+git config --global alias.st status
+git config --global alias.sh stash
+git config --global alias.up 'pull --rebase'
+git config --global alias.pl pull
+git config --global alias.pu push
+git config --global alias.sm submodule
+git config --global alias.lg "log --graph --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%cr)%C(reset) %C(blue)%s%C(reset) %C(bold Cyan)- %an%C(reset)%C(bold Green)%d%C(reset)' --abbrev-commit"
+
+curl -LJO https://github.com/tmux/tmux/releases/download/3.2a/tmux-3.2a.tar.gz
+tar -xvf tmux-3.2a.tar.gz
+./configure && make
+sudo make install
+vi ~/.tmux.conf
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+bash ~/.tmux/plugins/tpm/bin/install_plugins
+tmux source-file ~/.tmux.conf
+
+sudo yum install -y vim-enhanced
+vi  ~/.vimrc
+添加如下
+filetype plugin on
+syntax on
+set nu
+set nobackup
+set laststatus=2
+set showcmd
+set list
+set cursorline
+highlight WhitespaceEOL ctermbg=red guibg=red
+match WhitespaceEOL /\s\+$/
+
+vi /etc/profile  最后添加 alias vi=vim
+
+systemctl stop firewalld.service
+systemctl disable firewalld.service
+
+sudo setenforce 0
+sudo vi /etc/selinux/config        将 SELINUX 置为 disabled
+```
+
 ## 申请centos7虚拟机，修改时区
 ```bash
 timedatectl set-local-rtc 1 # 将硬件时钟调整为与本地时钟一致, 0 为设置为 UTC 时间
@@ -74,17 +166,6 @@ setenforce 0
 ```
 
 ## 安装必须的软件
-
-```
-sudo yum install -y epel-release
-sudo yum install -y centos-release-scl scl-utils-build devtoolset-9-toolchain
-scl enable devtoolset-9 bash
-sudo echo "source /opt/rh/devtoolset-9/enable" >> /etc/profile
-sudo yum groupinstall "Development Tools"
-sudo yum install -y libevent-devel libtools autoconf automake cmake openssl-devel python-devel readline-devel
-sudo yum install -y curl-devel expat-devel asciidoc xmlto
-sudo yum install -y vim-enhanced
-```
 
 
 * git <https://centos.pkgs.org/7/endpoint-x86_64/git-2.8.4-1.ep7.x86_64.rpm.html>

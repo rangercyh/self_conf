@@ -88,6 +88,8 @@ systemctl disable firewalld.service
 
 sudo setenforce 0
 sudo vi /etc/selinux/config        将 SELINUX 置为 disabled
+
+sudo yum install -y wget
 ```
 
 ## 申请centos7虚拟机，修改时区

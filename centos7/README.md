@@ -75,6 +75,18 @@ setenforce 0
 
 ## 安装必须的软件
 
+```
+sudo yum install -y epel-release
+sudo yum install -y centos-release-scl scl-utils-build devtoolset-9-toolchain
+scl enable devtoolset-9 bash
+sudo echo "source /opt/rh/devtoolset-9/enable" >> /etc/profile
+sudo yum groupinstall "Development Tools"
+sudo yum install -y libevent-devel libtools autoconf automake cmake openssl-devel python-devel readline-devel
+sudo yum install -y curl-devel expat-devel asciidoc xmlto
+sudo yum install -y vim-enhanced
+```
+
+
 * git <https://centos.pkgs.org/7/endpoint-x86_64/git-2.8.4-1.ep7.x86_64.rpm.html>
 * mongo4.2  <https://docs.mongodb.com/manual/tutorial/install-mongodb-on-red-hat/#configure-the-package-management-system-yum>
 * python2

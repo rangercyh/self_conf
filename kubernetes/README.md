@@ -86,3 +86,5 @@ kubeadm token create --print-join-command  直接打印 join 命令，省去计�
 在 node 节点连接进网络
 sudo kubeadm join 192.168.0.11:6443 --token 6xhol7.nyuxcgbsw856ts01 --discovery-token-ca-cert-hash sha256:e74be9f23cf427c47ba6a332db2dd7f4829d8bf5859f4fcf1070af58edcc21fc
 ```
+
+如果在 node 节点需要使用 kubectl 命令，需要把 master 上的 $HOME/.kube/config 拷贝到 node 节点

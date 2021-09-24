@@ -4,7 +4,7 @@
 
 - 关闭swap
 - 添加主机名跟 ip 地址关系
-- 添加 iptables 桥接
+- 添加 iptables 桥接以及内核转发
 - 安装 docker
 - 配置 docker 的启动模式
 - 安装 kube 工具链
@@ -27,6 +27,9 @@ sudo vi /etc/sysctl.d/k8s.conf
 添加
 net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
+
+modprobe br_netfilter
+sysctl -p /etc/sysctl.d/kubernetes.conf
 
 sysctl --system
 

@@ -1,6 +1,6 @@
 ### 安装指南：https://kubernetes.io/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
 
-master 过程中有失败就用 sudo kubeadm reset 重置，node join失败也是一样 reset
+master 过程中有失败就用 sudo kubeadm reset 重置，node join 失败也是一样 reset
 
 - 关闭swap
 - 添加主机名跟 ip 地址关系
@@ -18,7 +18,7 @@ sudo vi /etc/fstab
 注释掉这一行 # /dev/mapper/centos-swap swap
 
 设置主机名免得后面修改，相同主机名没办法加入同一个网络
-hostnamectl --static set-hostname k8s-master / hostnamectl --static set-hostname k8s-node1 / hostnamectl --static set-hostname k8s-node2
+hostnamectl --static set-hostname k8s-master / k8s-node1 / k8s-node2
 sudo vi /etc/hosts
 添加
 192.168.0.11     k8s-master

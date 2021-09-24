@@ -67,15 +67,15 @@ mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
-kubectl get node  （状态为  NotReady）
+kubectl get node  （状态为 NotReady）
 这里安装 flannel 网络：https://github.com/flannel-io/flannel
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
-kubectl get pods -n kube-system (状态全为 running，coredns需要等几秒)
+kubectl get pods -n kube-system (状态全为 running，coredns 需要等几秒)
 kubectl get node  （状态为 Ready）
 
-在 master 节点查看 token 跟 ca hash值
+在 master 节点查看 token 跟 ca hash 值
 kubeadm token list
-获取 ca证书 sha256 hash值
+获取 ca 证书 sha256 hash 值
 openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //'
 
 如果 token 过期，master 重新生成 token

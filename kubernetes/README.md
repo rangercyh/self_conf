@@ -81,6 +81,7 @@ openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outfor
 如果 token 过期，master 重新生成 token
 kubeadm token create
 kubeadm token create --ttl 0    永久有效 token
+kubeadm token create --print-join-command  直接打印 join 命令，省去计算 sha256 的步骤
 
 在 node 节点连接进网络
 sudo kubeadm join 192.168.0.11:6443 --token 6xhol7.nyuxcgbsw856ts01 --discovery-token-ca-cert-hash sha256:e74be9f23cf427c47ba6a332db2dd7f4829d8bf5859f4fcf1070af58edcc21fc

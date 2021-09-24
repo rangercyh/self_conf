@@ -1,6 +1,6 @@
 ### 安装指南：https://kubernetes.io/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
 
-过程中有失败就用 kubeadm reset 重置
+master 过程中有失败就用 sudo kubeadm reset 重置，node join失败也是一样 reset
 
 - 关闭swap
 - 添加主机名跟 ip 地址关系
@@ -10,13 +10,15 @@
 - 安装 kube 工具链
 - 拷贝 config 文件
 - 安装 pod 网络插件（选一个就好） https://kubernetes.io/zh/docs/concepts/cluster-administration/addons/
-- node 节点链接进网络
+- node 节点链接进网络 (等几秒)
 
 ```
 sudo swapoff -a
 sudo vi /etc/fstab
 注释掉这一行 # /dev/mapper/centos-swap swap
 
+设置主机名免得后面修改，相同主机名没办法加入同一个网络
+hostnamectl --static set-hostname k8s-master / hostnamectl --static set-hostname k8s-node1 / hostnamectl --static set-hostname k8s-node2
 sudo vi /etc/hosts
 添加
 192.168.0.11     k8s-master
@@ -75,6 +77,11 @@ kubectl get node  （状态为 Ready）
 kubeadm token list
 获取 ca证书 sha256 hash值
 openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //'
+
+如果 token 过期，master 重新生成 token
+kubeadm token create
+kubeadm token create --ttl 0    永久有效 token
+
 在 node 节点连接进网络
-sudo kubeadm join 192.168.0.11:6443 --token 6xhol7.nyuxcgbsw856ts01 --discovery-token-ca-cert-hash sha256:e74be9f23cf427c47ba6a332db2dd7f4829d8bf5859f4fcf1070af58edcc21f
+sudo kubeadm join 192.168.0.11:6443 --token 6xhol7.nyuxcgbsw856ts01 --discovery-token-ca-cert-hash sha256:e74be9f23cf427c47ba6a332db2dd7f4829d8bf5859f4fcf1070af58edcc21fc
 ```

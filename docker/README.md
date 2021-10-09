@@ -24,7 +24,11 @@ systemctl restart docker
 
 验证上传是否成功
 curl http://10.1.1.1:5000/v2/_catalog
+
+需要把那个镜像上传到 registry 就给那个镜像打一个 tag，然后就可以 push
+docker tag hello-world 10.1.1.1:5000/helloworld:latest
 ```
+
 
 示例打包本地镜像并上传脚本
 ```

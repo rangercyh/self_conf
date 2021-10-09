@@ -29,7 +29,7 @@ curl http://10.1.1.1:5000/v2/_catalog
 ```
 #!/bin/bash
 
-docker_name="10.0.136.4:5000/lyra:latest"
+docker_name="10.1.1.1:5000/lyra:latest"
 
 docker_build="docker build -t ${docker_name} -f Dockerfile ."
 docker_ls="docker image ls"

@@ -1,4 +1,5 @@
 ### 安装指南：https://docs.docker.com/engine/install/centos/
+### registry https://docs.docker.com/registry/
 
 ```
 先拉官方 registry 镜像

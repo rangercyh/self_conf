@@ -61,3 +61,5 @@ docker_clean
 
 ${docker_ls}
 ```
+
+### 参考：https://yeasy.gitbook.io/docker_practice/repository/registry

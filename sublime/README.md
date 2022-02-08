@@ -14,6 +14,8 @@ https://fonts.google.com/specimen/Roboto+Mono?sidebar.open=true&selection.family
     RawLineEdit
     pretty json
     alignment
+    markdownpreview
+    markdownediting
 
 ## 统计代码总行数，搜索正则：
     ^[ \t]*[^ \t\n\r-]+.*$

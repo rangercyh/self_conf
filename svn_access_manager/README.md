@@ -97,9 +97,9 @@ ALTER USER postgres WITH PASSWORD 'TestMysql!123';
 
 ## 配置web
 
-![](index.jpg)
+![](index.png)
 
-![](db.jpg)
+![](db.png)
 
 ```
 mysql -usvnadmin -p
@@ -108,12 +108,12 @@ SELECT @@character_set_database, @@collation_database;
 ```
 
 
-![](web.jpg)
+![](web.png)
 
-![](svn.jpg)
+![](svn.png)
 
-![](admin.jpg)
+![](admin.png)
 
-![](misc.jpg)
+![](misc.png)
 
-![](result.jpg)
+![](result.png)

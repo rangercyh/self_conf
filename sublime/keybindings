@@ -22,5 +22,14 @@
 
     { "keys": ["ctrl+d"], "command": "alignment" },
     { "keys": ["alt+d"], "command": "jump_back" },
-    { "keys": ["alt+f"], "command": "jump_forward" }
+    { "keys": ["alt+f"], "command": "jump_forward" },
+    { "keys": ["alt+c"], "command": "toggle_terminus_panel" },
+    {
+        "keys": ["alt+m"], "command": "terminus_open", "args": {
+            "cwd": "${file_path:${folder}}"
+        }
+    },
+    {
+        "keys": ["ctrl+w"], "command": "terminus_close", "context": [{ "key": "terminus_view"}]
+    }
 ]

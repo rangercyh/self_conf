@@ -16,6 +16,7 @@ https://fonts.google.com/specimen/Roboto+Mono?sidebar.open=true&selection.family
     alignment
     markdownpreview
     markdownediting
+    terminus
 
 ## 统计代码总行数，搜索正则：
     ^[ \t]*[^ \t\n\r-]+.*$

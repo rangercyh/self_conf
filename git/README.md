@@ -19,6 +19,7 @@
     git config --global alias.sm submodule
     git config --global alias.lg "log --graph --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%cr)%C(reset) %C(blue)%s%C(reset) %C(bold Cyan)- %an%C(reset)%C(bold Green)%d%C(reset)' --abbrev-commit"
     git config --global alias.cf "!f() { git checkout -b feature-$1 origin/feature-$1; }; f"
+
 ```
 ## 设置 git 代理，修改 ~/.ssh/config
 ```
